@@ -1,133 +1,56 @@
-AI-Powered Code Reviewer
-
-An AI-powered code reviewer that analyzes code, provides feedback, and highlights potential improvements using artificial intelligence.
-
-
-
-
-
-Features 🚀
-
-AI-driven code analysis and review
-
-Supports multiple programming languages
-
-Syntax highlighting with real-time editing
-
-Markdown-based AI review display
-
-Built with React (Frontend) and Node.js (Backend)
-
-Uses OpenAI API for AI-powered insights
-
-
-
-
-Tech Stack 🛠️
-
-Frontend: React, React Markdown, Highlight.js, Axios
-
-Backend: Node.js, Express.js
-
-AI Integration: OpenAI API
-
-Package Management: npm
-
-
-
-
-
-Installation & Setup 🏗️
-
-Prerequisites
-
-Ensure you have the following installed:
-
-Node.js (v16+ recommended)
-
-npm or yarn
-
-Git
-
-1. Clone the Repository
-
-  git clone https://github.com/yourusername/ai-code-reviewer.git
-  cd ai-code-reviewer
-
-2. Setup Backend
-
-  cd BackEnd
-  npm install
-  npm start
-
-3. Setup Frontend
-
-  cd ../Frontend
-  npm install
-  npm run dev
-
-4. Configure API Keys
-
-Create a .env file in BackEnd and add your OpenAI API key:
-
-OPENAI_API_KEY=your_openai_api_key_here
-
-
-
-
-
-Usage 📝
-
-Start both the backend and frontend servers.
-
-Enter your code into the editor.
-
-Click Review to receive AI-generated feedback.
-
-
-
-
-Project Structure 📁
-
-ai-code-reviewer/
-├── BackEnd/          # Node.js backend
-│   ├── src/
-│   │   ├── routes/   # API routes
-│   │   ├── services/ # AI services
-│   │   ├── app.js    # Express server setup
-│   ├── package.json
-│   ├── .env.example
-│
-├── Frontend/         # React frontend
-│   ├── src/
-│   │   ├── components/  # React components
-│   │   ├── App.jsx      # Main UI
-│   ├── package.json
-│
-├── README.md         # Project documentation
-└── .gitignore        # Files to ignore in Git
-
-
-
-
-
-Contributing 🤝
-
-Fork the repository.
-
-Create a new branch: git checkout -b feature-branch
-
-Commit your changes: git commit -m "Added new feature"
-
-Push to the branch: git push origin feature-branch
-
-Open a Pull Request 🚀
-
-
-
-
-
-
-License 📜
-
-This project is open-source and available under the MIT License.
+# CodeLens AI
+
+CodeLens AI is a full-stack AI-powered code review application that analyzes source code and provides automated feedback, bug detection, explanations, and improvement suggestions using Google Gemini.
+
+## Features
+
+- AI-powered source code review
+- Bug and potential issue detection
+- Code improvement and refactoring suggestions
+- Explanation of detected problems
+- Interactive code editor
+- Syntax highlighting
+- Markdown-formatted review output
+- React-based frontend
+- Node.js and Express backend
+- Google Gemini API integration
+
+## Tech Stack
+
+### Frontend
+- React.js
+- Vite
+- Axios
+- React Simple Code Editor
+- Prism.js
+- React Markdown
+
+### Backend
+- Node.js
+- Express.js
+- Google Gemini API
+
+## How It Works
+
+1. User enters source code in the editor.
+2. The frontend sends the code to the backend.
+3. The backend sends the code to Google Gemini.
+4. Gemini analyzes the code and generates a review.
+5. The backend returns the review to the frontend.
+6. The review is displayed in the application.
+
+## Project Structure
+
+CodeLens-AI/
+├── BackEnd/
+├── Frontend/
+├── .gitignore
+└── README.md
+
+## Installation
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Osheen145/CodeLens-AI.git
+cd CodeLens-AI
