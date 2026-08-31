@@ -1,48 +1,37 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 require("dotenv").config();
 
-const apiKey = process.env.GOOGLE_GEMINI_KEY || process.env.GEMINI_API_KEY;
-
-if (!apiKey) {
-    console.warn("WARNING: GOOGLE_GEMINI_KEY is missing in environment variables.");
+function getApiKey() {
+    const raw = process.env.GOOGLE_GEMINI_KEY || 
+                process.env.GEMINI_API_KEY || 
+                process.env.GOOGLE_API_KEY || 
+                process.env.GEMINI_KEY ||
+                process.env.VITE_GOOGLE_GEMINI_KEY;
+    if (!raw) return null;
+    return raw.trim().replace(/^["']|["']$/g, '');
 }
-
-// Initialize Google AI
-const genAI = apiKey ? new GoogleGenerativeAI(apiKey) : null;
-const modelName = process.env.GEMINI_MODEL || "gemini-1.5-flash";
-
-const model = genAI ? genAI.getGenerativeModel({
-    model: modelName,
-    systemInstruction: `
-        You are a Senior Code Reviewer (7+ years experience).
-        Your job is to analyze, review, and improve code.
-        - Ensure best practices, performance, security, and scalability.
-        - Highlight issues and suggest improvements with examples.
-        - Be direct, precise, and use simple explanations.
-    `
-}) : null;
 
 // Function to generate content
 async function generateContent(prompt) {
-    if (!model) {
-        if (!process.env.GOOGLE_GEMINI_KEY && !process.env.GEMINI_API_KEY) {
-            throw new Error("GOOGLE_GEMINI_KEY environment variable is not configured.");
-        }
-        const dynamicGenAI = new GoogleGenerativeAI(process.env.GOOGLE_GEMINI_KEY || process.env.GEMINI_API_KEY);
-        const dynamicModel = dynamicGenAI.getGenerativeModel({
-            model: process.env.GEMINI_MODEL || "gemini-1.5-flash",
-            systemInstruction: `
-                You are a Senior Code Reviewer (7+ years experience).
-                Your job is to analyze, review, and improve code.
-                - Ensure best practices, performance, security, and scalability.
-                - Highlight issues and suggest improvements with examples.
-                - Be direct, precise, and use simple explanations.
-            `
-        });
-        const result = await dynamicModel.generateContent(prompt);
-        const response = await result.response;
-        return response.text();
+    const key = getApiKey();
+    if (!key) {
+        const setKeys = Object.keys(process.env)
+            .filter(k => !k.startsWith('npm_') && !k.startsWith('NODE_') && !k.startsWith('VERCEL_') && !k.startsWith('AWS_'))
+            .join(', ');
+        throw new Error(`GOOGLE_GEMINI_KEY environment variable is not configured. (Available custom variables: [${setKeys || 'none'}])`);
     }
+
+    const genAI = new GoogleGenerativeAI(key);
+    const model = genAI.getGenerativeModel({
+        model: process.env.GEMINI_MODEL || "gemini-1.5-flash",
+        systemInstruction: `
+            You are a Senior Code Reviewer (7+ years experience).
+            Your job is to analyze, review, and improve code.
+            - Ensure best practices, performance, security, and scalability.
+            - Highlight issues and suggest improvements with examples.
+            - Be direct, precise, and use simple explanations.
+        `
+    });
 
     try {
         const result = await model.generateContent(prompt);
