@@ -2,13 +2,15 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 require("dotenv").config();
 
 function getApiKey() {
-    const raw = process.env.GOOGLE_GEMINI_KEY || 
-                process.env.GEMINI_API_KEY || 
-                process.env.GOOGLE_API_KEY || 
-                process.env.GEMINI_KEY ||
-                process.env.VITE_GOOGLE_GEMINI_KEY;
-    if (!raw) return null;
-    return raw.trim().replace(/^["']|["']$/g, '');
+    for (const key of Object.keys(process.env)) {
+        if (/^(google_?gemini_?key|gemini_?api_?key|google_?api_?key|gemini_?key|api_?key)$/i.test(key)) {
+            const val = process.env[key];
+            if (val && typeof val === 'string' && val.trim()) {
+                return val.trim().replace(/^["']|["']$/g, '');
+            }
+        }
+    }
+    return null;
 }
 
 // Function to generate content
