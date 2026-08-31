@@ -49,9 +49,21 @@ main .left .review {
   color: #000000;
   padding: 0.5rem 2rem;
   font-weight: 500;
+  font-size: 1rem;
+  border: none;
+  outline: none;
   cursor: pointer;
   user-select: none;
   border-radius: 0.7rem;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+}
+
+main .left .review:hover:not(:disabled) {
+  background-color: rgb(195, 195, 255);
+}
+
+main .left .review:active:not(:disabled) {
+  transform: scale(0.98);
 }
 
 

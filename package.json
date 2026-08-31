@@ -1,15 +1,11 @@
 {
-  "name": "backend",
+  "name": "codelens-ai",
   "version": "1.0.0",
-  "main": "server.js",
+  "private": true,
   "scripts": {
-    "dev": "nodemon server.js",
-    "start": "node server.js"
+    "build": "npm run build --prefix Frontend",
+    "install:all": "npm install --prefix BackEnd && npm install --prefix Frontend"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
     "cors": "^2.8.5",
